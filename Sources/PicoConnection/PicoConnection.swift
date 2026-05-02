@@ -7,18 +7,6 @@ import Network
 
 //--------------------------------------------------------------------------------------------------
 
-public protocol WiFiSendCodeProtocol {
-  var rawValue : UInt8 { get }
-}
-
-//--------------------------------------------------------------------------------------------------
-
-public protocol WiFiReceiveCodeProtocol {
-  init? (rawValue : UInt8)
-}
-
-//--------------------------------------------------------------------------------------------------
-
 @Observable @MainActor public final class PicoConnection <SEND_CODE : WiFiSendCodeProtocol, RECEIVE_CODE : WiFiReceiveCodeProtocol> : NSObject, NetServiceBrowserDelegate, NetServiceDelegate {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -150,7 +138,7 @@ public protocol WiFiReceiveCodeProtocol {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  func openConnection (with inResult : NWBrowser.Result) {
+  private func openConnection (with inResult : NWBrowser.Result) {
     if self.mTrace {
       print ("Open connection…")
     }
@@ -168,7 +156,7 @@ public protocol WiFiReceiveCodeProtocol {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  func disconnect () {
+  private func disconnect () {
     if self.mTrace {
       print ("Disconnect")
     }
@@ -264,7 +252,7 @@ public protocol WiFiReceiveCodeProtocol {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  func startReceive () {
+  private func startReceive () {
     self.mConnection?.receive (minimumIncompleteLength: 1, maximumLength: 65536) { optData, _, isDone, optError in
       DispatchQueue.main.async {
         if let data = optData, !data.isEmpty {
@@ -517,7 +505,7 @@ public protocol WiFiReceiveCodeProtocol {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  public func reset (completionCallBack inCompletionCallBack : Optional < @MainActor  (_ inCommand : Command) -> Void >) {
+  public func setCompletionCallBack (_ inCompletionCallBack : Optional < @MainActor  (_ inCommand : Command) -> Void >) {
     self.mReceivedRawData.removeAll (keepingCapacity: true)
     self.mDecoderState = .idle
     self.mCompletionCallBack = inCompletionCallBack
@@ -580,4 +568,3 @@ public protocol WiFiReceiveCodeProtocol {
 }
 
 //--------------------------------------------------------------------------------------------------
-
