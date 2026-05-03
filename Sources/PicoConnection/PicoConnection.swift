@@ -169,6 +169,7 @@ import Network
     self.mSendAliveToPeerTimer =  nil
     self.mPeerIsAliveTimer?.invalidate ()
     self.mPeerIsAliveTimer = nil
+    self.mReceivedRawData.removeAll ()
     self.startBrowsing ()
   }
 
@@ -367,8 +368,8 @@ import Network
   //MARK: RECEPTION
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  @ObservationIgnored private var mReceivedRawData = Data ()
-  @ObservationIgnored var rawByteCount : Int { self.mReceivedRawData.count }
+  private var mReceivedRawData = Data ()
+  public var rawReceivedByteCount : Int { self.mReceivedRawData.count }
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -381,7 +382,7 @@ import Network
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  enum ByteFormat {
+  private enum ByteFormat {
     case parameterExtension
     case beginUnsigned
     case beginSigned
