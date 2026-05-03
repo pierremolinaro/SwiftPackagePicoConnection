@@ -506,9 +506,13 @@ import Network
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  public func setCompletionCallBack (_ inCompletionCallBack : Optional < @MainActor  (_ inCommand : Command) -> Void >) {
+  public func removeAllReceivedData () {
     self.mReceivedRawData.removeAll (keepingCapacity: true)
-    self.mDecoderState = .idle
+  }
+  
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  public func setCompletionCallBack (_ inCompletionCallBack : Optional < @MainActor  (_ inCommand : Command) -> Void >) {
     self.mCompletionCallBack = inCompletionCallBack
   }
   
