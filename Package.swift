@@ -8,7 +8,7 @@ import PackageDescription
 
 let package = Package (
   name: "PicoConnection",
-  platforms: [.macOS (.v15)],
+  platforms: [.macOS (.v14)],
   products: [
     .library (name: "PicoConnection", targets: ["PicoConnection"])
   ],
