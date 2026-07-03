@@ -92,8 +92,9 @@ import Network
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  nonisolated func browseResultsChanged (newResults inNewResults : Set<NWBrowser.Result>,
-                                         changes inChanges : Set<NWBrowser.Result.Change>) {
+  @Sendable nonisolated private
+  func browseResultsChanged (newResults inNewResults : Set<NWBrowser.Result>,
+                             changes inChanges : Set<NWBrowser.Result.Change>) {
     DispatchQueue.main.async {
       for resultChange in inChanges {
         switch resultChange {
@@ -184,7 +185,7 @@ import Network
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  private nonisolated func connectionStateDidChange (_ inState : NWConnection.State) {
+  @Sendable private nonisolated func connectionStateDidChange (_ inState : NWConnection.State) {
     DispatchQueue.main.async {
       switch inState {
       case .setup:
@@ -573,3 +574,4 @@ import Network
 }
 
 //--------------------------------------------------------------------------------------------------
+
